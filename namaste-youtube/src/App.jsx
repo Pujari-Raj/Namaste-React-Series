@@ -1,0 +1,29 @@
+import { Provider } from "react-redux";
+import "./App.css";
+import Body from "./components/Body";
+import Header from "./components/Header";
+import store from "./utils/store";
+
+function App() {
+  return (
+    <>
+      <Provider store={store}>
+        <div>
+          <Header />
+          <Body />
+        </div>
+      </Provider>
+      {/**
+       * Header
+       * Body
+       *   Sidebar
+       * MainContainer
+       *   FilterBtns
+       *   VideoContainer
+       *     VideoCard
+       **/}
+    </>
+  );
+}
+
+export default App;
