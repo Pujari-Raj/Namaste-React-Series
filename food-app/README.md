@@ -1,4 +1,4 @@
-# redux-tooklkit
+# redux-tooklki-setup
 
 - Install @reduxjs/toolkit & react-redux
 - Build Our Store
@@ -6,3 +6,4 @@
 - Slice(cartslice)
 - dispatch(action)
 - Selector
+
