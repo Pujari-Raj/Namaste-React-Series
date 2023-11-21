@@ -1,11 +1,79 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
+import { checkValidate } from "../utils/validate";
+import { auth } from "../utils/firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const Login = () => {
   const [isSiginForm, setIsSiginForm] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
+  // Toggle-form
   const toggleSignInForm = () => {
     setIsSiginForm(!isSiginForm);
+  };
+
+  //
+  const email = useRef(null);
+  const password = useRef(null);
+  const name = useRef(null);
+
+  const handleFormSubmit = () => {
+    console.log("" + email.current.value);
+    console.log("" + password.current.value);
+
+    const message = checkValidate(
+      // name.current.value,
+      email.current.value,
+      password.current.value
+    );
+    setErrorMessage(message);
+    console.log(message);
+
+    // if there is error, then it'll return error or Sign-Up/Sign-In
+    if (message) return;
+
+    if (!isSiginForm) {
+      // Sign-Up logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          // ...
+          console.log("user-data", user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          console.log(errorCode + "--" + errorMessage);
+        });
+    } else {
+      // Sign-In logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode + "--" + errorMessage);
+          setErrorMessage(errorMessage);
+        });
+    }
   };
 
   return (
@@ -19,7 +87,7 @@ const Login = () => {
           />
         </div>
         <form
-          action=""
+          onSubmit={(e) => e.preventDefault()}
           className="w-[30%] absolute p-14 bg-black my-36 mx-auto right-0 left-0 text-white bg-opacity-75"
         >
           <h1 className="text-4xl font-bold py-4">
@@ -27,30 +95,31 @@ const Login = () => {
           </h1>
           {!isSiginForm && (
             <input
-              className="p-4 my-4 w-full py4"
+              ref={name}
+              className="p-4 my-4 w-full bg-gray-700"
               type="text"
               placeholder="Full Name"
-              name="email"
-              id=""
+              name="name"
             />
           )}
           <input
-            className="p-4 my-4 w-full py4"
+            ref={email}
+            className="p-4 my-4 w-full bg-gray-700"
             type="text"
             placeholder="Email Or Phone Number"
             name="email"
-            id=""
           />
           <input
-            className="p-4 my-4 w-full py4"
+            ref={password}
+            className="p-4 my-4 w-full bg-gray-700"
             type="password"
             placeholder="password"
             name="email"
-            id=""
           />
+          <p className="text-red-500 font-bold text-lg py-2">{errorMessage}</p>
           <button
-            type="submit"
             className="p-4 my-6 bg-red-600 w-full rounded-lg"
+            onClick={handleFormSubmit}
           >
             {isSiginForm ? "Sign In" : "Sign Up"}
           </button>
