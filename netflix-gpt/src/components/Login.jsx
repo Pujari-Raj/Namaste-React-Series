@@ -8,11 +8,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { addUser } from "../utils/userSlice";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
-  const navigate = useNavigate();
   const [isSiginForm, setIsSiginForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
@@ -65,10 +64,9 @@ const Login = () => {
                   uid: uid,
                   email: email,
                   displayName: displayName,
-                  photoURL: photoURL,
+                  photoURL: USER_AVATAR,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               // An error occurred
@@ -96,7 +94,6 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
