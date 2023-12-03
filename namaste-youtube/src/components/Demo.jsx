@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { findPrime } from "../utils/helper";
 
+//useMemo Hook-Demo
 const Demo = () => {
   const [text, setText] = useState(0);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
