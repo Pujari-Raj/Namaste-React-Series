@@ -76,6 +76,7 @@ const Demo2 = () => {
   );
 };
 
+//useRef  Working
 /**
  * When you click the "Increase Ref" button, the onClick event handler is triggered. It updates the ref.current value by incrementing it by 1 (ref.current = ref.current + 1). However, this ref update alone doesn't cause a re-render of the component.
 
