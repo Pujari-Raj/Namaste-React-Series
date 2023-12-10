@@ -114,7 +114,7 @@ const Login = () => {
           />
         </div>
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleFormSubmit}
           className="w-[30%] absolute p-14 bg-black my-36 mx-auto right-0 left-0 text-white bg-opacity-75"
         >
           <h1 className="text-4xl font-bold py-4">
