@@ -1,15 +1,17 @@
 const reactheading = React.createElement(
   "h1",
-  { id: "react-heading" }, // (attributes) this object is used to give the attributes to a tag(id,class,etc)
+  // (attributes) this object is used to give the attributes to a tag(id,class,etc)
+  { id: "react-heading" }, 
   "Hello World From React" // (childrens)
 );
 
 console.log(reactheading); // ( returns object)
-/*When we're adding any element in page in react bts it adds one object for each element and not tag |element directly into the webpage  */
+/*When we're adding any element in page in react bts it adds one object for each element and not tag | element directly into the webpage  */
 
 /* Uncomment Below to code to run above code */
 // const reactroot = ReactDOM.createRoot(document.getElementById("root"));
 // reactroot.render(reactheading);
+
 
 /*
  *   <div id="parent">
